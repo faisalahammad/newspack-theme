@@ -1010,6 +1010,57 @@ function newspack_customize_register( $wp_customize ) {
 	);
 
 	/**
+	 * Listing Template Settings — only if the Newspack Listings plugin is active.
+	 */
+	$newspack_listing_post_types = array(
+		'newspack_lst_event',
+		'newspack_lst_generic',
+		'newspack_lst_mktplce',
+		'newspack_lst_place',
+	);
+
+	$has_listings = false;
+	foreach ( $newspack_listing_post_types as $listing_cpt ) {
+		if ( post_type_exists( $listing_cpt ) ) {
+			$has_listings = true;
+			break;
+		}
+	}
+
+	if ( $has_listings ) {
+		$wp_customize->add_section(
+			'listing_default_settings',
+			array(
+				'title' => esc_html__( 'Listing Settings', 'newspack-theme' ),
+				'panel' => 'newspack_template_settings',
+			)
+		);
+
+		// Add option to select the default listing template.
+		$wp_customize->add_setting(
+			'listing_template_default',
+			array(
+				'default'           => 'default',
+				'sanitize_callback' => 'newspack_sanitize_post_template',
+			)
+		);
+		$wp_customize->add_control(
+			'listing_template_default',
+			array(
+				'type'        => 'select',
+				'label'       => __( 'Default Listing Template', 'newspack-theme' ),
+				'description' => esc_html__( 'This option changes the selected template used for newly created listings going forward. The template can still be changed on a per-listing basis.', 'newspack-theme' ),
+				'choices'     => array(
+					'default'            => esc_html__( 'With Sidebar', 'newspack-theme' ),
+					'single-feature.php' => esc_html__( 'One Column', 'newspack-theme' ),
+					'single-wide.php'    => esc_html__( 'One Column Wide', 'newspack-theme' ),
+				),
+				'section'     => 'listing_default_settings',
+			)
+		);
+	}
+
+	/**
 	 * Archive settings
 	 */
 	$wp_customize->add_section(

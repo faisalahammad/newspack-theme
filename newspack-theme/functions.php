@@ -1245,6 +1245,11 @@ function newspack_maybe_set_default_post_template( $post_ID, $post, $update ) {
 			if ( 'default' !== $page_template_default ) {
 				update_post_meta( $post_ID, '_wp_page_template', $page_template_default );
 			}
+		} elseif ( in_array( $post->post_type, array( 'newspack_lst_event', 'newspack_lst_generic', 'newspack_lst_mktplce', 'newspack_lst_place' ), true ) ) {
+			$listing_template_default = get_theme_mod( 'listing_template_default' );
+			if ( $listing_template_default && 'default' !== $listing_template_default ) {
+				update_post_meta( $post_ID, '_wp_page_template', $listing_template_default );
+			}
 		}
 	}
 }
