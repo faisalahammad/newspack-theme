@@ -1254,6 +1254,27 @@ function newspack_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Add option to control comment meta position.
+	$wp_customize->add_setting(
+		'comment_meta_position',
+		array(
+			'default'           => 'above',
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'comment_meta_position',
+		array(
+			'type'    => 'radio',
+			'label'   => esc_html__( 'Comment Meta Position', 'newspack-theme' ),
+			'section' => 'comments_options',
+			'choices' => array(
+				'above' => esc_html__( 'Above comment content', 'newspack-theme' ),
+				'below' => esc_html__( 'Below comment content', 'newspack-theme' ),
+			),
+		)
+	);
+
 	/**
 	 * Footer settings
 	 */
