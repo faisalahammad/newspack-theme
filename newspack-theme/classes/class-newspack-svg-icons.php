@@ -288,6 +288,9 @@ class Newspack_SVG_Icons {
 		'phone'       => array(
 			'tel:',
 		),
+		'pinterest'   => array(
+			'pinterest.',
+		),
 		'pocket'      => array(
 			'getpocket.com',
 		),
