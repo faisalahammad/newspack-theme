@@ -949,6 +949,24 @@ function newspack_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Add option to make share buttons sticky on single posts.
+	$wp_customize->add_setting(
+		'share_buttons_sticky',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'newspack_sanitize_checkbox',
+		)
+	);
+	$wp_customize->add_control(
+		'share_buttons_sticky',
+		array(
+			'type'        => 'checkbox',
+			'label'       => esc_html__( 'Sticky Share Buttons', 'newspack-theme' ),
+			'description' => esc_html__( 'Display floating share buttons alongside article content on single posts. Requires Jetpack Sharing to be enabled. Only visible on desktop screens.', 'newspack-theme' ),
+			'section'     => 'post_default_settings',
+		)
+	);
+
 	/**
 	 * Page Template Settings
 	 */

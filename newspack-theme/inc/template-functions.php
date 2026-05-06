@@ -270,6 +270,12 @@ function newspack_body_classes( $classes ) {
 		$classes[] = 'newspack--font-loading';
 	}
 
+	// Add a class when sticky share buttons are enabled.
+	$sticky_share = get_theme_mod( 'share_buttons_sticky', false );
+	if ( true === $sticky_share && is_singular() && function_exists( 'sharing_display' ) ) {
+		$classes[] = 'has-sticky-share';
+	}
+
 	return $classes;
 }
 add_filter( 'body_class', 'newspack_body_classes' );

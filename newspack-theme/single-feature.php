@@ -32,6 +32,8 @@ get_header();
 					</header>
 				<?php endif; ?>
 
+				<?php get_template_part( 'template-parts/post/sticky-share-buttons' ); ?>
+
 				<div class="main-content">
 
 					<?php

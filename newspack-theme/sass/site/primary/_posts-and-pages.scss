@@ -384,6 +384,65 @@ div.sharedaddy {
 	}
 }
 
+/* Sticky Share Buttons */
+
+.sticky-share-buttons {
+	display: none;
+
+	@include utilities.media( desktop ) {
+		display: block;
+		float: left;
+		margin-left: calc(-1 * (100vw - 100%) / 2 - #{structure.$size__spacing-unit});
+		position: sticky;
+		top: calc(#{4 * structure.$size__spacing-unit} + 60px); // offset for sticky header
+		transform: translateX(-100%);
+		width: 0;
+		z-index: 5;
+
+		// Adjust top position when sticky header is active.
+		.h-stk & {
+			top: calc(#{4 * structure.$size__spacing-unit} + 80px);
+		}
+
+		// Adjust top position when short header is active.
+		.h-sh & {
+			top: calc(#{4 * structure.$size__spacing-unit} + 50px);
+		}
+
+		div.sharedaddy {
+			min-height: 0;
+		}
+
+		.sd-content {
+			margin-bottom: 0;
+
+			ul {
+				display: flex !important; // Override Jetpack inline styles.
+				flex-direction: column;
+				gap: #{0.5 * structure.$size__spacing-unit};
+			}
+
+			ul li {
+				margin-bottom: 0;
+				padding: 0;
+			}
+		}
+
+		.sd-social h3.sd-title,
+		.share-customize-link {
+			display: none;
+		}
+	}
+}
+
+// Hide sticky share in featured-image-behind and featured-image-beside layouts.
+.single-featured-image-behind,
+.single-featured-image-beside {
+	.sticky-share-buttons {
+		display: none;
+	}
+}
+
 .post-navigation {
 	border-width: 1px 0;
 	border-style: solid;
