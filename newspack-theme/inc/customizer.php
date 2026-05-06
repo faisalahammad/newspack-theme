@@ -949,6 +949,24 @@ function newspack_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Add option to hide Yoast breadcrumbs on single posts.
+	$wp_customize->add_setting(
+		'hide_breadcrumb_on_posts',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'newspack_sanitize_checkbox',
+		)
+	);
+	$wp_customize->add_control(
+		'hide_breadcrumb_on_posts',
+		array(
+			'type'        => 'checkbox',
+			'label'       => esc_html__( 'Hide breadcrumbs on posts', 'newspack-theme' ),
+			'description' => esc_html__( 'Hide the Yoast breadcrumb navigation on individual posts.', 'newspack-theme' ),
+			'section'     => 'post_default_settings',
+		)
+	);
+
 	/**
 	 * Page Template Settings
 	 */

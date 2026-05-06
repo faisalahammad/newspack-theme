@@ -291,7 +291,11 @@ endif;
 
 	<?php
 	if ( function_exists( 'yoast_breadcrumb' ) ) {
-		yoast_breadcrumb( '<div class="site-breadcrumb desktop-only"><div class="wrapper">', '</div></div>' );
+		// Optionally hide breadcrumbs on single posts via Customizer setting.
+		$hide_breadcrumb_on_posts = get_theme_mod( 'hide_breadcrumb_on_posts', false );
+		if ( ! ( true === $hide_breadcrumb_on_posts && is_singular( 'post' ) ) ) {
+			yoast_breadcrumb( '<div class="site-breadcrumb desktop-only"><div class="wrapper">', '</div></div>' );
+		}
 	}
 	?>
 
