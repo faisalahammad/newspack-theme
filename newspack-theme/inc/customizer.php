@@ -245,6 +245,27 @@ function newspack_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Subpage header - menu toggle position.
+	$wp_customize->add_setting(
+		'subpage_toggle_side',
+		array(
+			'default'           => 'left',
+			'sanitize_callback' => 'newspack_sanitize_slideout_sidebar_side',
+		)
+	);
+	$wp_customize->add_control(
+		'subpage_toggle_side',
+		array(
+			'type'    => 'radio',
+			'label'   => esc_html__( 'Menu toggle position', 'newspack-theme' ),
+			'choices' => array(
+				'left'  => _x( 'Left', 'menu toggle position', 'newspack-theme' ),
+				'right' => _x( 'Right', 'menu toggle position', 'newspack-theme' ),
+			),
+			'section' => 'header_section_subpages',
+		)
+	);
+
 	/**
 	 * Header - Mobile Donate CTA
 	 */

@@ -100,6 +100,10 @@
 	margin: 0 #{1.25 * structure.$size__spacing-unit} 0 0;
 }
 
+.subpage-toggle-contain.dir-right {
+	margin: 0 0 0 #{0.75 * structure.$size__spacing-unit};
+}
+
 .site-header .desktop-menu-toggle.dir-right {
 	margin: 0 0 0 #{1.25 * structure.$size__spacing-unit};
 }
@@ -418,13 +422,15 @@
 
 // Fallback - open from the right
 #mobile-sidebar-fallback,
-#desktop-sidebar-fallback.dir-right {
+#desktop-sidebar-fallback.dir-right,
+#subpage-sidebar-fallback.dir-right {
 	left: auto;
 	right: -100%;
 	transition: right 0.2s;
 }
 
 .desktop-menu-opened #desktop-sidebar-fallback.dir-right,
+.subpage-menu-opened #subpage-sidebar-fallback.dir-right,
 .mobile-menu-opened #mobile-sidebar-fallback {
 	right: 0;
 }

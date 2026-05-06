@@ -29,6 +29,7 @@ $header_center_logo    = get_theme_mod( 'header_center_logo', false );
 $show_slideout_sidebar = get_theme_mod( 'header_show_slideout', false );
 $slideout_sidebar_side = get_theme_mod( 'slideout_sidebar_side', 'left' );
 $header_sub_simplified = get_theme_mod( 'header_sub_simplified', false );
+$subpage_toggle_side   = get_theme_mod( 'subpage_toggle_side', 'left' );
 $header_sticky         = get_theme_mod( 'header_sticky', false );
 
 // Even if 'Show Slideout Sidebar' is checked, don't show it if no widgets are assigned.
@@ -60,7 +61,7 @@ endif;
 		<?php if ( true === $header_sub_simplified && ! is_front_page() ) : ?>
 			<div class="middle-header-contain">
 				<div class="wrapper">
-					<?php if ( newspack_has_menus() || true === $show_slideout_sidebar ) : ?>
+					<?php if ( ( newspack_has_menus() || true === $show_slideout_sidebar ) && 'left' === $subpage_toggle_side ) : ?>
 						<div class="subpage-toggle-contain">
 							<button class="subpage-toggle" on="tap:subpage-sidebar.toggle">
 								<?php echo wp_kses( newspack_get_icon_svg( 'menu', 20 ), newspack_sanitize_svgs() ); ?>
@@ -81,6 +82,15 @@ endif;
 					<?php endif; ?>
 
 					<?php get_template_part( 'template-parts/header/header', 'search' ); ?>
+
+					<?php if ( ( newspack_has_menus() || true === $show_slideout_sidebar ) && 'right' === $subpage_toggle_side ) : ?>
+						<div class="subpage-toggle-contain dir-right">
+							<button class="subpage-toggle" on="tap:subpage-sidebar.toggle">
+								<?php echo wp_kses( newspack_get_icon_svg( 'menu', 20 ), newspack_sanitize_svgs() ); ?>
+								<span class="screen-reader-text"><?php esc_html_e( 'Menu', 'newspack-theme' ); ?></span>
+							</button>
+						</div>
+					<?php endif; ?>
 				</div>
 			</div><!-- .wrapper -->
 		<?php else : ?>

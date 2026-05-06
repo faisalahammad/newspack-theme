@@ -337,9 +337,20 @@
 			} );
 		} );
 
-		// Only show Alternative Logo option if 'simple subpage header' is picked
+		// Only show Alternative Logo and toggle side options if 'simple subpage header' is picked
 		wp.customize( 'header_sub_simplified', function ( setting ) {
 			wp.customize.control( 'newspack_alternative_logo', function ( control ) {
+				const visibility = function () {
+					if ( true === setting.get() ) {
+						control.container.slideDown( 180 );
+					} else {
+						control.container.slideUp( 180 );
+					}
+				};
+				visibility();
+				setting.bind( visibility );
+			} );
+			wp.customize.control( 'subpage_toggle_side', function ( control ) {
 				const visibility = function () {
 					if ( true === setting.get() ) {
 						control.container.slideDown( 180 );

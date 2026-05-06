@@ -5,14 +5,16 @@
  * @package Newspack
  */
 
+$subpage_toggle_side = get_theme_mod( 'subpage_toggle_side', 'left' );
+
 if ( newspack_is_amp() ) : ?>
-	<amp-sidebar id="subpage-sidebar" layout="nodisplay" side="left" class="subpage-sidebar">
+	<amp-sidebar id="subpage-sidebar" layout="nodisplay" side="<?php echo esc_attr( $subpage_toggle_side ); ?>" class="subpage-sidebar">
 		<button class="subpage-toggle" on='tap:subpage-sidebar.toggle'>
 			<?php echo wp_kses( newspack_get_icon_svg( 'close', 20 ), newspack_sanitize_svgs() ); ?>
 			<?php esc_html_e( 'Close', 'newspack-theme' ); ?>
 		</button>
 <?php else : ?>
-	<aside id="subpage-sidebar-fallback" class="subpage-sidebar">
+	<aside id="subpage-sidebar-fallback" class="subpage-sidebar dir-<?php echo esc_attr( $subpage_toggle_side ); ?>">
 		<button class="subpage-toggle">
 			<?php echo wp_kses( newspack_get_icon_svg( 'close', 20 ), newspack_sanitize_svgs() ); ?>
 			<?php esc_html_e( 'Close', 'newspack-theme' ); ?>
