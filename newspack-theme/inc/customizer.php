@@ -769,6 +769,24 @@ function newspack_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Add option to show author website.
+	$wp_customize->add_setting(
+		'show_author_website',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'newspack_sanitize_checkbox',
+		)
+	);
+	$wp_customize->add_control(
+		'show_author_website',
+		array(
+			'type'        => 'checkbox',
+			'label'       => esc_html__( 'Display Author Website', 'newspack-theme' ),
+			'description' => esc_html__( 'Display Author website with bio on individual posts and author archives.', 'newspack-theme' ),
+			'section'     => 'author_bio_options',
+		)
+	);
+
 	// Add option to hide author social links.
 	$wp_customize->add_setting(
 		'show_author_social',

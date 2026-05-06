@@ -83,6 +83,11 @@ function newspack_trust_indicators_output_author_info() {
 		}
 	}
 
+	$author_website = '';
+	if ( true === get_theme_mod( 'show_author_website', false ) ) {
+		$author_website = get_user_meta( $author->ID, 'user_url', true );
+	}
+
 	$author_phone   = get_user_meta( $author->ID, 'public_contact_info_tel', true );
 	$author_twitter = get_user_meta( $author->ID, 'twitter', true );
 	?>
@@ -91,6 +96,13 @@ function newspack_trust_indicators_output_author_info() {
 			<a class="author-expanded-social-link" href="mailto:<?php echo esc_attr( $author_email ); ?>">
 				<?php echo wp_kses( newspack_get_social_icon_svg( 'mail', 20 ), newspack_sanitize_svgs() ); ?>
 				<?php echo esc_html( $author_email ); ?>
+			</a>
+		<?php endif; ?>
+
+		<?php if ( $author_website ) : ?>
+			<a class="author-expanded-social-link" href="<?php echo esc_url( $author_website ); ?>" target="_blank" rel="noopener noreferrer">
+				<?php echo wp_kses( newspack_get_social_icon_svg( 'link', 20 ), newspack_sanitize_svgs() ); ?>
+				<?php echo esc_html( preg_replace( '#^https?://#', '', untrailingslashit( $author_website ) ) ); ?>
 			</a>
 		<?php endif; ?>
 

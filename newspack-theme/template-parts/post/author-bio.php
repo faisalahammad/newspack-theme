@@ -67,12 +67,21 @@ if ( function_exists( 'coauthors_posts_links' ) && is_single() && ! empty( get_c
 								<?php endif; ?>
 							</h2>
 
-							<?php if ( ( $should_display_author_email && '' !== $author->user_email ) || true === get_theme_mod( 'show_author_social', false ) ) : ?>
+							<?php
+							$coauthor_website = isset( $author->website ) ? $author->website : '';
+							if ( ( $should_display_author_email && '' !== $author->user_email ) || ( true === get_theme_mod( 'show_author_website', false ) && '' !== $coauthor_website ) || true === get_theme_mod( 'show_author_social', false ) ) :
+								?>
 								<div class="author-meta">
 									<?php if ( $should_display_author_email && true === get_theme_mod( 'show_author_email', false ) && '' !== $author->user_email ) : ?>
 										<a class="author-email" href="<?php echo 'mailto:' . esc_attr( $author->user_email ); ?>">
 											<?php echo wp_kses( newspack_get_social_icon_svg( 'mail', 18 ), newspack_sanitize_svgs() ); ?>
 											<?php echo esc_html( $author->user_email ); ?>
+										</a>
+									<?php endif; ?>
+									<?php if ( true === get_theme_mod( 'show_author_website', false ) && '' !== $coauthor_website ) : ?>
+										<a class="author-website" href="<?php echo esc_url( $coauthor_website ); ?>" target="_blank" rel="noopener noreferrer">
+											<?php echo wp_kses( newspack_get_social_icon_svg( 'link', 18 ), newspack_sanitize_svgs() ); ?>
+											<?php echo esc_html( preg_replace( '#^https?://#', '', untrailingslashit( $coauthor_website ) ) ); ?>
 										</a>
 									<?php endif; ?>
 									<?php newspack_author_social_links( $author->ID ); ?>
@@ -140,12 +149,21 @@ elseif ( (bool) get_the_author_meta( 'description' ) && is_single() ) :
 					</a>
 				</h2>
 
-				<?php if ( true === get_theme_mod( 'show_author_email', false ) || true === get_theme_mod( 'show_author_social', false ) ) : ?>
+				<?php
+				$author_website = get_the_author_meta( 'url' );
+				if ( true === get_theme_mod( 'show_author_email', false ) || ( true === get_theme_mod( 'show_author_website', false ) && '' !== $author_website ) || true === get_theme_mod( 'show_author_social', false ) ) :
+					?>
 					<div class="author-meta">
 						<?php if ( true === get_theme_mod( 'show_author_email', false ) ) : ?>
 							<a class="author-email" href="<?php echo 'mailto:' . esc_attr( get_the_author_meta( 'user_email' ) ); ?>">
 								<?php echo wp_kses( newspack_get_social_icon_svg( 'mail', 18 ), newspack_sanitize_svgs() ); ?>
 								<?php echo esc_html( get_the_author_meta( 'user_email' ) ); ?>
+							</a>
+						<?php endif; ?>
+						<?php if ( true === get_theme_mod( 'show_author_website', false ) && '' !== $author_website ) : ?>
+							<a class="author-website" href="<?php echo esc_url( $author_website ); ?>" target="_blank" rel="noopener noreferrer">
+								<?php echo wp_kses( newspack_get_social_icon_svg( 'link', 18 ), newspack_sanitize_svgs() ); ?>
+								<?php echo esc_html( preg_replace( '#^https?://#', '', untrailingslashit( $author_website ) ) ); ?>
 							</a>
 						<?php endif; ?>
 						<?php newspack_author_social_links( get_the_author_meta( 'ID' ) ); ?>

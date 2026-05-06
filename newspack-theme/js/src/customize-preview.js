@@ -52,4 +52,15 @@
 			}
 		} );
 	} );
+
+	// Hide Author website
+	wp.customize( 'show_author_website', function ( value ) {
+		value.bind( function ( to ) {
+			if ( false === to ) {
+				$( 'body' ).addClass( 'hide-author-website' );
+			} else {
+				$( 'body' ).removeClass( 'hide-author-website' );
+			}
+		} );
+	} );
 } )( jQuery );

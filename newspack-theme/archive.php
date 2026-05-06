@@ -80,14 +80,16 @@ if ( class_exists( '\Newspack\Optional_Modules\Collections' ) &&
 
 				if ( is_author() ) :
 					// Get all of the author information.
-					$author_id          = get_the_author_meta( 'ID' );
-					$show_author_social = get_theme_mod( 'show_author_social', false );
-					$show_author_email  = get_theme_mod( 'show_author_email', false );
-					$author_social      = newspack_author_get_social_links( $author_id );
-					$author_email       = get_the_author_meta( 'user_email', get_query_var( 'author' ) );
+					$author_id           = get_the_author_meta( 'ID' );
+					$show_author_social  = get_theme_mod( 'show_author_social', false );
+					$show_author_email   = get_theme_mod( 'show_author_email', false );
+					$show_author_website = get_theme_mod( 'show_author_website', false );
+					$author_social       = newspack_author_get_social_links( $author_id );
+					$author_email        = get_the_author_meta( 'user_email', get_query_var( 'author' ) );
+					$author_website      = get_the_author_meta( 'url', get_query_var( 'author' ) );
 
 					// Don't output author-meta container unless it's populated.
-					if ( ( $show_author_social && '' !== $author_social ) || ( $show_author_email && '' !== $author_email ) ) :
+					if ( ( $show_author_social && '' !== $author_social ) || ( $show_author_email && '' !== $author_email ) || ( $show_author_website && '' !== $author_website ) ) :
 						?>
 						<div class="author-meta">
 							<?php
@@ -96,6 +98,13 @@ if ( class_exists( '\Newspack\Optional_Modules\Collections' ) &&
 								<a class="author-email" href="<?php echo 'mailto:' . esc_attr( $author_email ); ?>">
 									<?php echo wp_kses( newspack_get_social_icon_svg( 'mail', 18 ), newspack_sanitize_svgs() ); ?>
 									<?php echo esc_html( $author_email ); ?>
+								</a>
+							<?php endif; ?>
+
+							<?php if ( $show_author_website && '' !== $author_website ) : ?>
+								<a class="author-website" href="<?php echo esc_url( $author_website ); ?>" target="_blank" rel="noopener noreferrer">
+									<?php echo wp_kses( newspack_get_social_icon_svg( 'link', 18 ), newspack_sanitize_svgs() ); ?>
+									<?php echo esc_html( preg_replace( '#^https?://#', '', untrailingslashit( $author_website ) ) ); ?>
 								</a>
 							<?php endif; ?>
 

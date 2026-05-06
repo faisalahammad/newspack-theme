@@ -557,12 +557,22 @@ div.sharedaddy {
 		}
 	}
 
-	.author-email {
+	.author-email,
+	.author-website {
 		align-items: center;
 		display: flex;
 
 		svg {
 			margin-right: 0.25em;
+		}
+	}
+
+	.author-website {
+		margin-top: #{0.25 * structure.$size__spacing-unit};
+
+		@include utilities.media( desktop ) {
+			margin-top: 0;
+			margin-left: structure.$size__spacing-unit;
 		}
 	}
 
