@@ -1385,7 +1385,7 @@ function newspack_customize_typography_register( $wp_customize ) {
 		array(
 			'label'       => __( 'Font Provider Import Code or URL', 'newspack-theme' ),
 			// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet -- This is example text, not actual code.
-			'description' => __( 'Example: &lt;link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"&gt; or https://fonts.googleapis.com/css?family=Open+Sans. For GDPR-friendly alternatives, you can use fonts.bunny.net or api.fonts.coollabs.io with the same URL format.', 'newspack-theme' ),
+			'description' => __( 'Example: &lt;link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"&gt; or https://fonts.googleapis.com/css?family=Open+Sans.', 'newspack-theme' ),
 			'section'     => 'newspack_typography',
 			'type'        => 'text',
 		)
