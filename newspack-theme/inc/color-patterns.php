@@ -229,7 +229,6 @@ function newspack_custom_colors_css() {
 		$editor_css .= '
 			.wp-block-newspack-ads-blocks-ad-unit > div {
 				background-color: ' . esc_attr( get_theme_mod( 'ads_color_hex', '#ffffff' ) ) . ';
-				padding: 8px;
 			}
 		';
 	}
