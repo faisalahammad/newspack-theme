@@ -1141,6 +1141,66 @@ function newspack_truncate_text( $content, $length, $after = '...' ) {
 }
 
 /**
+ * Get the author excerpt for display in the author bio.
+ *
+ * For standard WordPress users, reads from 'newspack_author_excerpt' user meta.
+ * For Co-Authors Plus guest authors, reads from the post_excerpt field.
+ *
+ * @param int|object $author Author ID or Co-Authors Plus author object.
+ * @return string The author excerpt, or empty string if none exists.
+ */
+function newspack_get_author_excerpt( $author ) {
+	if ( is_object( $author ) && isset( $author->ID ) ) {
+		// Co-Authors Plus guest author — use post_excerpt.
+		if ( isset( $author->post_type ) && 'guest-author' === $author->post_type ) {
+			return get_post_field( 'post_excerpt', $author->ID );
+		}
+		// Standard WP user via Co-Authors Plus.
+		return get_user_meta( $author->ID, 'newspack_author_excerpt', true );
+	}
+	// Plain user ID.
+	return get_user_meta( absint( $author ), 'newspack_author_excerpt', true );
+}
+
+/**
+ * Add excerpt field to user profile.
+ */
+function newspack_author_excerpt_profile_field( $user ) {
+	$excerpt = get_user_meta( $user->ID, 'newspack_author_excerpt', true );
+	?>
+	<h3><?php esc_html_e( 'Author Bio Excerpt', 'newspack-theme' ); ?></h3>
+	<table class="form-table">
+		<tr>
+			<th><label for="newspack_author_excerpt"><?php esc_html_e( 'Excerpt', 'newspack-theme' ); ?></label></th>
+			<td>
+				<textarea name="newspack_author_excerpt" id="newspack_author_excerpt" rows="3" class="regular-text"><?php echo esc_textarea( $excerpt ); ?></textarea>
+				<?php wp_nonce_field( 'newspack_author_excerpt_save', 'nonce_newspack_author_excerpt' ); ?>
+				<p class="description"><?php esc_html_e( 'A shorter version of the bio for display in the author bio section. If left empty, the full bio will be used.', 'newspack-theme' ); ?></p>
+			</td>
+		</tr>
+	</table>
+	<?php
+}
+add_action( 'show_user_profile', 'newspack_author_excerpt_profile_field' );
+add_action( 'edit_user_profile', 'newspack_author_excerpt_profile_field' );
+
+/**
+ * Save excerpt field from user profile.
+ */
+function newspack_save_author_excerpt_profile_field( $user_id ) {
+	if ( ! current_user_can( 'edit_user', $user_id ) ) {
+		return;
+	}
+	if ( ! isset( $_POST['nonce_newspack_author_excerpt'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce_newspack_author_excerpt'] ) ), 'newspack_author_excerpt_save' ) ) {
+		return;
+	}
+	$excerpt = isset( $_POST['newspack_author_excerpt'] ) ? sanitize_textarea_field( wp_unslash( $_POST['newspack_author_excerpt'] ) ) : '';
+	update_user_meta( $user_id, 'newspack_author_excerpt', $excerpt );
+}
+add_action( 'personal_options_update', 'newspack_save_author_excerpt_profile_field' );
+add_action( 'edit_user_profile_update', 'newspack_save_author_excerpt_profile_field' );
+
+/**
  * Returns an array of 'acceptable' avatar tags, to use with wp_kses().
  */
 function newspack_sanitize_avatars() {

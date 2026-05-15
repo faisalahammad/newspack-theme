@@ -20,7 +20,7 @@ if ( function_exists( 'coauthors_posts_links' ) && is_single() && ! empty( get_c
 
 	foreach ( $authors as $author ) {
 
-		if ( '' !== $author->description ) {
+		if ( '' !== $author->description || '' !== newspack_get_author_excerpt( $author ) ) {
 			// avatar_img_tag is a property added by Newspack Network plugin to distributed posts.
 			$author_avatar = $author->avatar_img_tag ?? coauthors_get_avatar( $author, absint( $author_avatar_size ) );
 			$author_url    = get_author_posts_url( $author->ID, $author->user_nicename );
@@ -70,7 +70,22 @@ if ( function_exists( 'coauthors_posts_links' ) && is_single() && ! empty( get_c
 						</div>
 					</div><!-- .author-bio-header -->
 
-					<?php if ( get_theme_mod( 'author_bio_truncate', true ) ) : ?>
+					<?php
+					$author_excerpt = newspack_get_author_excerpt( $author );
+					if ( '' !== $author_excerpt ) :
+					?>
+						<p>
+							<?php echo esc_html( $author_excerpt ); ?>
+							<?php if ( '#' !== $author_url ) : ?>
+								<a class="author-link" href="<?php echo esc_url( $author_url ); ?>" rel="author">
+								<?php
+									/* translators: %s is the current author's name. */
+									printf( esc_html__( 'More by %s', 'newspack-theme' ), esc_html( $author->display_name ) );
+								?>
+								</a>
+							<?php endif; ?>
+						</p>
+					<?php elseif ( get_theme_mod( 'author_bio_truncate', true ) ) : ?>
 						<p>
 							<?php echo esc_html( newspack_truncate_text( wp_strip_all_tags( $author->description ), $author_bio_length ) ); ?>
 							<?php if ( '#' !== $author_url ) : ?>
@@ -103,7 +118,7 @@ if ( function_exists( 'coauthors_posts_links' ) && is_single() && ! empty( get_c
 		}
 	}
 
-elseif ( (bool) get_the_author_meta( 'description' ) && is_single() ) :
+elseif ( ( (bool) get_the_author_meta( 'description' ) || '' !== newspack_get_author_excerpt( get_the_author_meta( 'ID' ) ) ) && is_single() ) :
 	?>
 
 <div class="author-bio">
@@ -140,7 +155,20 @@ elseif ( (bool) get_the_author_meta( 'description' ) && is_single() ) :
 			</div>
 		</div><!-- .author-bio-header -->
 
-		<?php if ( get_theme_mod( 'author_bio_truncate', true ) ) : ?>
+		<?php
+			$author_excerpt = newspack_get_author_excerpt( get_the_author_meta( 'ID' ) );
+			if ( '' !== $author_excerpt ) :
+			?>
+			<p>
+				<?php echo esc_html( $author_excerpt ); ?>
+				<a class="author-link" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
+				<?php
+					/* translators: %s is the current author's name. */
+					printf( esc_html__( 'More by %s', 'newspack-theme' ), esc_html( get_the_author() ) );
+				?>
+				</a>
+			</p>
+		<?php elseif ( get_theme_mod( 'author_bio_truncate', true ) ) : ?>
 			<p>
 				<?php echo esc_html( newspack_truncate_text( wp_strip_all_tags( get_the_author_meta( 'description' ) ), $author_bio_length ) ); ?>
 				<a class="author-link" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
