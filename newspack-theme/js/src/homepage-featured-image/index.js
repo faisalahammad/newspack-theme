@@ -6,8 +6,7 @@
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { compose } from '@wordpress/compose';
-import { withDispatch, withSelect } from '@wordpress/data';
-import { useSelect } from '@wordpress/data';
+import { withDispatch, withSelect, useSelect } from '@wordpress/data';
 import { Button, Spinner } from '@wordpress/components';
 import { Fragment, useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -22,7 +21,7 @@ import { META_FIELD_NAME } from './utils';
  *
  * @param {Function} onSelect Callback receiving the attachment ID.
  */
-const openMediaLibrary = ( onSelect ) => {
+const openMediaLibrary = onSelect => {
 	// eslint-disable-next-line no-undef
 	const mediaFrame = wp.media( {
 		title: __( 'Homepage Featured Image', 'newspack-theme' ),
@@ -60,9 +59,7 @@ const HomepageFeaturedImage = ( { homepageImageId, setImage, removeImage } ) => 
 			title={ __( 'Homepage Featured Image', 'newspack-theme' ) }
 			className="newspack-homepage-featured-image"
 		>
-			<p>
-				{ __( 'Set an alternate image to display in the Homepage Posts block instead of the post\'s featured image.', 'newspack-theme' ) }
-			</p>
+			<p>{ __( "Set an alternate image to display in the Homepage Posts block instead of the post's featured image.", 'newspack-theme' ) }</p>
 			<div className="newspack-homepage-featured-image__container">
 				{ homepageImageId ? (
 					<Fragment>
@@ -78,27 +75,16 @@ const HomepageFeaturedImage = ( { homepageImageId, setImage, removeImage } ) => 
 							</div>
 						) }
 						<div className="newspack-homepage-featured-image__actions" style={ { marginTop: '10px' } }>
-							<Button
-								variant="secondary"
-								onClick={ handleSelect }
-								style={ { marginRight: '8px' } }
-							>
+							<Button variant="secondary" onClick={ handleSelect } style={ { marginRight: '8px' } }>
 								{ __( 'Replace image', 'newspack-theme' ) }
 							</Button>
-							<Button
-								variant="link"
-								isDestructive
-								onClick={ removeImage }
-							>
+							<Button variant="link" isDestructive onClick={ removeImage }>
 								{ __( 'Remove image', 'newspack-theme' ) }
 							</Button>
 						</div>
 					</Fragment>
 				) : (
-					<Button
-						variant="secondary"
-						onClick={ handleSelect }
-					>
+					<Button variant="secondary" onClick={ handleSelect }>
 						{ __( 'Select homepage image', 'newspack-theme' ) }
 					</Button>
 				) }
@@ -112,7 +98,7 @@ const composed = compose( [
 		homepageImageId: select( 'core/editor' ).getEditedPostAttribute( 'meta' )[ META_FIELD_NAME ],
 	} ) ),
 	withDispatch( dispatch => ( {
-		setImage: ( id ) => {
+		setImage: id => {
 			dispatch( 'core/editor' ).editPost( {
 				meta: { [ META_FIELD_NAME ]: id },
 			} );
