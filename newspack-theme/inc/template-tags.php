@@ -357,6 +357,38 @@ if ( ! function_exists( 'newspack_entry_footer' ) ) :
 	}
 endif;
 
+/**
+ * Get the homepage featured image ID for a post.
+ *
+ * Returns the alternate image ID set for use in the Homepage Posts block,
+ * or 0 if none is set. Blocks and plugins can filter the return value
+ * via `newspack_theme_homepage_thumbnail_id`.
+ *
+ * @since Newspack Theme 2.22.0
+ *
+ * @param int $post_id Post ID. Defaults to current post.
+ * @return int Attachment ID, or 0 if no alternate image is set.
+ */
+function newspack_get_homepage_featured_image_id( $post_id = 0 ) {
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+	}
+	$image_id = (int) get_post_meta( $post_id, 'newspack_homepage_featured_image', true );
+
+	/**
+	 * Filters the homepage featured image ID for a post.
+	 *
+	 * Allows blocks and plugins (e.g. newspack-blocks) to retrieve
+	 * the alternate image that should be displayed in the Homepage Posts block.
+	 *
+	 * @since Newspack Theme 2.22.0
+	 *
+	 * @param int $image_id Attachment ID. 0 means no alternate image.
+	 * @param int $post_id  Post ID.
+	 */
+	return apply_filters( 'newspack_theme_homepage_thumbnail_id', $image_id, $post_id );
+}
+
 if ( ! function_exists( 'newspack_post_thumbnail' ) ) :
 	/**
 	 * Displays an optional post thumbnail.

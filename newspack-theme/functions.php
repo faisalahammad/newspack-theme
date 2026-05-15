@@ -608,6 +608,8 @@ function newspack_enqueue_scripts() {
 		wp_enqueue_script( 'newspack-post-summary', get_theme_file_uri( '/js/dist/post-summary.js' ), array(), $theme_version, true );
 		wp_set_script_translations( 'newspack-post-summary', 'newspack-theme', $languages_path );
 
+		wp_enqueue_script( 'newspack-homepage-featured-image', get_theme_file_uri( '/js/dist/homepage-featured-image.js' ), array(), $theme_version, true );
+		wp_set_script_translations( 'newspack-homepage-featured-image', 'newspack-theme', $languages_path );
 	}
 
 	// Post meta options.
@@ -944,6 +946,17 @@ function newspack_register_meta() {
 			'show_in_rest' => true,
 			'single'       => true,
 			'type'         => 'string',
+		)
+	);
+
+	register_post_meta(
+		'post',
+		'newspack_homepage_featured_image',
+		array(
+			'show_in_rest' => true,
+			'single'       => true,
+			'type'         => 'integer',
+			'default'      => 0,
 		)
 	);
 
