@@ -1205,17 +1205,22 @@ function newspack_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'collapse_comments',
 		array(
-			'default'           => false,
-			'sanitize_callback' => 'newspack_sanitize_checkbox',
+			'default'           => '',
+			'sanitize_callback' => 'newspack_sanitize_select',
 		)
 	);
 	$wp_customize->add_control(
 		'collapse_comments',
 		array(
-			'type'        => 'checkbox',
+			'type'        => 'select',
 			'label'       => esc_html__( 'Collapse Comments', 'newspack-theme' ),
-			'description' => esc_html__( 'When using WordPress\'s default comments, checking this option will collapse the comments section when there is more than one comment, and display a button to expand.', 'newspack-theme' ),
+			'description' => esc_html__( 'When using WordPress\'s default comments, choose when to collapse the comments section and display a button to expand.', 'newspack-theme' ),
 			'section'     => 'comments_options',
+			'choices'     => array(
+				''              => esc_html__( 'Don\'t collapse', 'newspack-theme' ),
+				'more_than_one' => esc_html__( 'Collapse when more than one comment', 'newspack-theme' ),
+				'always'        => esc_html__( 'Always collapse', 'newspack-theme' ),
+			),
 		)
 	);
 
@@ -1626,6 +1631,20 @@ function newspack_sanitize_checkbox( $input ) {
 	} else {
 		return false;
 	}
+}
+
+/**
+ * Sanitize select input.
+ *
+ * @param string $input   Value to sanitize.
+ * @param object $setting Setting instance.
+ *
+ * @return string Sanitized value.
+ */
+function newspack_sanitize_select( $input, $setting ) {
+	$input   = sanitize_key( $input );
+	$choices = $setting->manager->get_control( $setting->id )->choices;
+	return ( array_key_exists( $input, $choices ) ) ? $input : $setting->default;
 }
 
 /**

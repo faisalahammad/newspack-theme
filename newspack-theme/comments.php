@@ -20,7 +20,7 @@ if ( post_password_required() ) {
 }
 
 $discussion         = newspack_get_discussion_data();
-$collapse_comments  = get_theme_mod( 'collapse_comments', false );
+$collapse_comments  = get_theme_mod( 'collapse_comments', '' );
 $on_first_page      = true;
 $comments_collapsed = false;
 $url_end            = '';
@@ -34,9 +34,14 @@ if ( false !== strpos( $url_end, 'cpage=' ) || false !== strpos( $url_end, 'comm
 	$on_first_page = false;
 }
 
-// Collapse comments if that's set, if there's more than one, and if we're on the first page:
-if ( $collapse_comments && 1 < (int) $discussion->responses && $on_first_page ) {
-	$comments_collapsed = true;
+// Collapse comments based on the setting and if we're on the first page:
+if ( $collapse_comments && $on_first_page ) {
+	if ( 'always' === $collapse_comments ) {
+		$comments_collapsed = true;
+	} elseif ( ( true === $collapse_comments || 'more_than_one' === $collapse_comments ) && 1 < (int) $discussion->responses ) {
+		// Backward compat: boolean true treated same as 'more_than_one'.
+		$comments_collapsed = true;
+	}
 }
 ?>
 
@@ -154,8 +159,20 @@ if ( $collapse_comments && 1 < (int) $discussion->responses && $on_first_page ) 
 	else :
 
 		// Show comment form.
-		newspack_comment_form( true );
+		if ( $comments_collapsed ) :
+		?>
+			<div id="comments-wrapper" class="comments-wrapper comments-hide" [class]="showComments ? 'comments-wrapper' : 'comments-wrapper comments-hide'">
+		<?php endif; ?>
 
-	endif; // End have_comments check.
-	?>
+		<?php newspack_comment_form( true ); ?>
+
+		<?php if ( $comments_collapsed ) : ?>
+			</div><!-- .comments-wrapper -->
+			<button class="comments-toggle" id="comments-toggle" on="tap:AMP.setState({showComments: !showComments})">
+				<?php echo wp_kses( newspack_get_icon_svg( 'chevron_left', 24 ), newspack_sanitize_svgs() ); ?><span [text]="showComments ? '<?php esc_html_e( 'Collapse comments', 'newspack-theme' ); ?>' : '<?php esc_html_e( 'Expand comments', 'newspack-theme' ); ?>'"><?php esc_html_e( 'Expand comments', 'newspack-theme' ); ?></span>
+			</button>
+		<?php endif; ?>
+
+	<?php endif; // End have_comments check. ?>
+
 </div><!-- #comments -->
