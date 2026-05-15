@@ -164,7 +164,7 @@ function newspack_customize_register( $wp_customize ) {
 		'slideout_label',
 		array(
 			'default'           => esc_html__( 'Menu', 'newspack-theme' ),
-			'sanitize_callback' => 'sanitize_text_field',
+			'sanitize_callback' => 'newspack_sanitize_radio',
 		)
 	);
 	$wp_customize->add_control(
@@ -1259,14 +1259,14 @@ function newspack_customize_register( $wp_customize ) {
 		'comment_meta_position',
 		array(
 			'default'           => 'above',
-			'sanitize_callback' => 'sanitize_text_field',
+			'sanitize_callback' => 'newspack_sanitize_radio',
 		)
 	);
 	$wp_customize->add_control(
 		'comment_meta_position',
 		array(
 			'type'    => 'radio',
-			'label'   => esc_html__( 'Comment Meta Position', 'newspack-theme' ),
+			'label'   => esc_html__( 'Comment meta position', 'newspack-theme' ),
 			'section' => 'comments_options',
 			'choices' => array(
 				'above' => esc_html__( 'Above comment content', 'newspack-theme' ),

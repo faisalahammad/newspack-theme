@@ -25,8 +25,11 @@ class Newspack_Walker_Comment extends Walker_Comment {
 
 		$tag = ( 'div' === $args['style'] ) ? 'div' : 'li';
 
-		ob_start();
-		?>
+		$comment_meta = '';
+		$_meta_level  = ob_get_level();
+		try {
+			ob_start();
+			?>
 		<footer class="comment-meta">
 			<div class="comment-author vcard">
 				<?php
@@ -86,15 +89,28 @@ class Newspack_Walker_Comment extends Walker_Comment {
 			<?php endif; ?>
 		</footer><!-- .comment-meta -->
 		<?php
-		$comment_meta = ob_get_clean();
+			$comment_meta = ob_get_clean();
+		} finally {
+			while ( ob_get_level() > $_meta_level ) {
+				ob_end_clean();
+			}
+		}
 
-		ob_start();
-		?>
+		$comment_content = '';
+		$_content_level  = ob_get_level();
+		try {
+			ob_start();
+			?>
 		<div class="comment-content">
 			<?php comment_text(); ?>
 		</div><!-- .comment-content -->
 		<?php
-		$comment_content = ob_get_clean();
+			$comment_content = ob_get_clean();
+		} finally {
+			while ( ob_get_level() > $_content_level ) {
+				ob_end_clean();
+			}
+		}
 
 		$comment_meta_position = get_theme_mod( 'comment_meta_position', 'above' );
 
@@ -103,11 +119,11 @@ class Newspack_Walker_Comment extends Walker_Comment {
 			<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 				<?php
 				if ( 'above' === $comment_meta_position ) {
-					echo $comment_meta; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped above
-					echo $comment_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped above
+					echo wp_kses_post( $comment_meta );
+					echo wp_kses_post( $comment_content );
 				} else {
-					echo $comment_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped above
-					echo $comment_meta; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already escaped above
+					echo wp_kses_post( $comment_content );
+					echo wp_kses_post( $comment_meta );
 				}
 				?>
 			</article><!-- .comment-body -->
