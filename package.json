@@ -18,7 +18,7 @@
 		"build": "npm run clean && run-p \"build:*\"",
 		"watch": "npm run clean && run-p \"watch:*\"",
 		"test": "echo 'No JS unit tests in this repository.'",
-		"lint": "npm run lint:scss && npm run lint:js",
+		"lint": "npm run lint:scss && npm run lint:js && npm run lint:php",
 		"lint:js": "newspack-scripts wp-scripts lint-js '**/*.{js,jsx,ts,tsx}'",
 		"lint:js:staged": "newspack-scripts wp-scripts lint-js --ext .js,.jsx,.ts,.tsx",
 		"fix:js": "newspack-scripts wp-scripts lint-js --fix '**/{src,includes}/**/*.{js,jsx,ts,tsx}'",
