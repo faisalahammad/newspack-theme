@@ -474,6 +474,17 @@
 					text-align: right;
 				}
 			}
+
+			// Fix clumping when beside featured image constrains the wrapper to 50%.
+			&.single-featured-image-beside {
+				.site-header .middle-header-contain .wrapper {
+					justify-content: space-between;
+
+					> div {
+						flex: none;
+					}
+				}
+			}
 		}
 
 		&.h-ll {

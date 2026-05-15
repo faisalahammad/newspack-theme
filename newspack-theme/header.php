@@ -70,6 +70,10 @@ endif;
 						</div>
 					<?php endif; ?>
 
+					<?php if ( ( newspack_has_menus() || true === $show_slideout_sidebar ) && 'right' === $subpage_toggle_side && true === $header_center_logo ) : ?>
+						<div class="subpage-toggle-contain subpage-toggle-spacer" aria-hidden="true"></div>
+					<?php endif; ?>
+
 					<?php get_template_part( 'template-parts/header/site', 'branding' ); ?>
 
 					<?php newspack_mobile_cta(); ?>

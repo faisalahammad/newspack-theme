@@ -104,6 +104,11 @@
 	margin: 0 0 0 #{0.75 * structure.$size__spacing-unit};
 }
 
+.subpage-toggle-contain.subpage-toggle-spacer {
+	visibility: hidden;
+	pointer-events: none;
+}
+
 .site-header .desktop-menu-toggle.dir-right {
 	margin: 0 0 0 #{1.25 * structure.$size__spacing-unit};
 }
