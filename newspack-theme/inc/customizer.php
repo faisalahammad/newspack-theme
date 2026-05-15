@@ -108,7 +108,7 @@ function newspack_customize_register( $wp_customize ) {
 		)
 	);
 
-	// Header - add option for simplified short header.
+	// Header - add option for sticky header.
 	$wp_customize->add_setting(
 		'header_sticky',
 		array(
@@ -122,6 +122,24 @@ function newspack_customize_register( $wp_customize ) {
 			'type'        => 'checkbox',
 			'label'       => esc_html__( 'Sticky Header', 'newspack-theme' ),
 			'description' => esc_html__( 'Makes header "stick" to the top of the page on scroll. Forces a fixed height.', 'newspack-theme' ),
+			'section'     => 'header_section_appearance',
+		)
+	);
+
+	// Header - add option to collapse submenu items.
+	$wp_customize->add_setting(
+		'collapse_submenus',
+		array(
+			'default'           => false,
+			'sanitize_callback' => 'newspack_sanitize_checkbox',
+		)
+	);
+	$wp_customize->add_control(
+		'collapse_submenus',
+		array(
+			'type'        => 'checkbox',
+			'label'       => esc_html__( 'Collapse Submenu Items', 'newspack-theme' ),
+			'description' => esc_html__( 'Collapse submenu items so readers must click to expand them, rather than showing them on hover.', 'newspack-theme' ),
 			'section'     => 'header_section_appearance',
 		)
 	);

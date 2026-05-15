@@ -184,6 +184,11 @@ function newspack_body_classes( $classes ) {
 		$classes[] = 'h-stk'; // Header sticky.
 	}
 
+	$collapse_submenus = get_theme_mod( 'collapse_submenus', false );
+	if ( true === $collapse_submenus ) {
+		$classes[] = 'collapse-submenus';
+	}
+
 	$cta_show  = get_theme_mod( 'show_header_cta', false );
 	$cta_url   = get_theme_mod( 'header_cta_url', '' );
 	$cta_in_sh = get_theme_mod( 'cta_in_simplified_header', false );

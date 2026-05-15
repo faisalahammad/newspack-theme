@@ -198,4 +198,35 @@
 		left: 100%;
 		top: 0;
 	}
+
+	/*
+	 * Collapsible submenus: click-only, no hover reveal.
+	 */
+	.collapse-submenus & {
+		@include utilities.media( tablet ) {
+			.submenu-expand {
+				pointer-events: auto;
+			}
+
+			.menu-item-has-children:hover > .sub-menu {
+				display: none;
+				opacity: 0;
+			}
+
+			.menu-item-has-children > .submenu-expand.open-dropdown + .sub-menu {
+				display: block;
+				opacity: 1;
+			}
+
+			.sub-menu .menu-item-has-children:hover > .sub-menu {
+				display: none;
+				opacity: 0;
+			}
+
+			.sub-menu .menu-item-has-children > .submenu-expand.open-dropdown + .sub-menu {
+				display: block;
+				opacity: 1;
+			}
+		}
+	}
 }
