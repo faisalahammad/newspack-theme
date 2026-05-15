@@ -115,11 +115,6 @@ function newspack_body_classes( $classes ) {
 	$header_sub_simplified = get_theme_mod( 'header_sub_simplified', false );
 	if ( true === $header_sub_simplified && ! is_front_page() ) {
 		$classes[] = 'h-sub';
-
-		$subpage_toggle_side = get_theme_mod( 'subpage_toggle_side', 'left' );
-		if ( 'right' === $subpage_toggle_side ) {
-			$classes[] = 'h-sub-right';
-		}
 	} else {
 		$classes[] = 'h-nsub';
 	}
