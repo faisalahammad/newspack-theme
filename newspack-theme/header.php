@@ -85,16 +85,18 @@ endif;
 						</button>
 					<?php endif; ?>
 
-					<?php get_template_part( 'template-parts/header/header', 'search' ); ?>
+					<div class="subpage-right-wrapper">
+						<?php get_template_part( 'template-parts/header/header', 'search' ); ?>
 
-					<?php if ( ( newspack_has_menus() || true === $show_slideout_sidebar ) && 'right' === $subpage_toggle_side ) : ?>
-						<div class="subpage-toggle-contain dir-right">
-							<button class="subpage-toggle" on="tap:subpage-sidebar.toggle">
-								<?php echo wp_kses( newspack_get_icon_svg( 'menu', 20 ), newspack_sanitize_svgs() ); ?>
-								<span class="screen-reader-text"><?php esc_html_e( 'Menu', 'newspack-theme' ); ?></span>
-							</button>
-						</div>
-					<?php endif; ?>
+						<?php if ( ( newspack_has_menus() || true === $show_slideout_sidebar ) && 'right' === $subpage_toggle_side ) : ?>
+							<div class="subpage-toggle-contain dir-right">
+								<button class="subpage-toggle" on="tap:subpage-sidebar.toggle">
+									<?php echo wp_kses( newspack_get_icon_svg( 'menu', 20 ), newspack_sanitize_svgs() ); ?>
+									<span class="screen-reader-text"><?php esc_html_e( 'Menu', 'newspack-theme' ); ?></span>
+								</button>
+							</div>
+						<?php endif; ?>
+					</div>
 				</div>
 			</div><!-- .wrapper -->
 		<?php else : ?>

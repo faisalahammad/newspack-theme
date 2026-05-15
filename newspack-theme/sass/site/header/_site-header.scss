@@ -460,8 +460,14 @@
 				}
 			}
 
-			.header-search-contain {
+			.subpage-right-wrapper {
+				align-items: center;
+				display: flex;
 				margin-left: auto;
+
+				.header-search-contain {
+					margin-left: 0;
+				}
 			}
 		}
 
