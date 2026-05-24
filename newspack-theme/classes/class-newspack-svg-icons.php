@@ -257,7 +257,8 @@ class Newspack_SVG_Icons {
 		'feed'        => array(
 			'/feed',
 		),
-		'google-news' => array(
+		'google'      => array(
+			'google.com',
 			'news.google.com',
 		),
 		'google-plus' => array(
