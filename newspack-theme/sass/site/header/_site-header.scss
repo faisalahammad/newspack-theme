@@ -463,10 +463,20 @@
 			.subpage-right-wrapper {
 				align-items: center;
 				display: flex;
+				gap: #{0.75 * structure.$size__spacing-unit};
 				margin-left: auto;
+
+				.mb-cta,
+					.mobile-menu-toggle {
+					margin-left: 0;
+				}
 
 				.header-search-contain {
 					margin-left: 0;
+				}
+
+				> * {
+					flex: none;
 				}
 			}
 		}

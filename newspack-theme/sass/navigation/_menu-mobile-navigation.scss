@@ -172,33 +172,6 @@
 		.site-branding {
 			margin-right: 0;
 		}
-
-		.mb-cta {
-			margin-left: auto;
-		}
-
-		.middle-header-contain .header-search-contain {
-			margin-left: 1.25rem;
-		}
-	}
-
-	&.h-cl {
-		@include utilities.media( tablet ) {
-			.wrapper {
-				position: relative;
-			}
-			.mb-cta {
-				right: 2.25rem;
-				position: absolute;
-				z-index: 1;
-			}
-
-			&:not(.h-stk).single-featured-image-beside {
-				.mb-cta {
-					right: 2.25rem;
-				}
-			}
-		}
 	}
 }
 
