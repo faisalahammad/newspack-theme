@@ -32,7 +32,7 @@ body:not(.newspack-ui) {
 }
 
 .header-widget {
-	overflow: hidden;
+	overflow-x: clip;
 }
 
 // Header - solid bg
@@ -467,7 +467,7 @@ hr {
 }
 
 .above-footer-widgets {
-	overflow: hidden;
+	overflow-x: clip;
 }
 
 .site-content .wpnbha {
